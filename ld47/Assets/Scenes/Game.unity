@@ -18200,7 +18200,7 @@ MonoBehaviour:
 
 
     by
-    DrPrettyPatty
+    Zak Reynolds
 
 
     for ludum dare 47: "Stuck in a Loop"
@@ -18214,7 +18214,7 @@ MonoBehaviour:
 
     gamepeanutbutters
 
-    [framework]
+    [base code]
 
 
     Unity Technologies, jean-moreno,
@@ -18228,23 +18228,23 @@ MonoBehaviour:
     [fonts]
 
 
-    nohidea
-    idk pack
+    An
+    old guitar, dnd dice, assorted cups and glasses
 
-    soniss.com gdc bundle
+    soniss.com gdc bundle resources
 
-    [sound samples]
-
-
-
+    [sound
+    samples used for layering]
 
 
 
 
 
 
-    Thanks
-    for playing!'
+
+
+
+    Thanks for playing!'
 --- !u!222 &1639567137
 CanvasRenderer:
   m_ObjectHideFlags: 0
