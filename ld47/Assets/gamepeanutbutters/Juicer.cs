@@ -7,6 +7,7 @@ public class Juicer : MonoBehaviour
     [Header("Configuration")]
     public NoiseSettings CameraShakeProfile;
     public GameObject[] Fx;
+    public AudioClip[] Sfx;
 
     [Header("References")]
     public CinemachineCameraShake Camera;
@@ -19,11 +20,20 @@ public class Juicer : MonoBehaviour
     private float initialFrequencyGain;
     private Coroutine shakeCoroutine;
 
+    // sfx
+    private AudioSource audioSource;
+
     private void Awake()
     {
         _instance = this.CheckSingleton(_instance);
+        _instance.audioSource = _instance.gameObject.AddComponent<AudioSource>();
     }
 
+    public static void PlaySound(int index)
+    {
+        _instance.audioSource.pitch = Random.Range(0.8f, 1.2f);
+        _instance.audioSource.PlayOneShot(_instance.Sfx[index], Random.Range(0.8f, 1.2f));
+    }
     public static void ShakeCamera(float intensity = 1f)
     {
         _instance.NonStaticShakeCamera(intensity);

@@ -6,7 +6,9 @@ public class OblexState : IState
 {
     public IState NextState { get; private set; }
 
-    public void OnEnter() {
+    public void OnEnter()
+    {
+        MusicBox.ChangeMusic(Song.Boss.ToInt());
     }
 
     public IEnumerator OnUpdate()
@@ -16,11 +18,16 @@ public class OblexState : IState
         yield return new WaitForSeconds(2);
         // todo: shwink sound and animations
         GameConductor.GetGate.transform.Translate(0, -10, 0);
+        Juicer.PlaySound(1);
         Juicer.ShakeCamera(0.1f);
         yield return new WaitForSeconds(1);
         GameConductor.CameraStateTrigger("NextState");
+        yield return new WaitForSeconds(1);
+        Juicer.PlaySound(0);
         Juicer.ShakeCamera(1);
         yield return new WaitForSeconds(1);
+        Juicer.PlaySound(1);
+        Juicer.PlaySound(0);
         GameConductor.GetCurtain.transform.Translate(0, -10, 0);
         foreach(var npc in GameConductor.GetBandNPCs)
         {

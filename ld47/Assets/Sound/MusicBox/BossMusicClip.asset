@@ -14,22 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Tense
   ClipLayers:
-  - Clip: {fileID: 8300000, guid: 4b487c39c03a0fc4a93f21b641fd601f, type: 3}
-  - Clip: {fileID: 8300000, guid: d3a739d64236ff647a6715f442a80ee3, type: 3}
-  - Clip: {fileID: 8300000, guid: f166da7f22a20fb44bcadd9ffd765792, type: 3}
-  BPM: 120
+  - Clip: {fileID: 8300000, guid: 31f081908afd2e648af36c1be99885cc, type: 3}
+  BPM: 125
   BeatsPerBar: 4
   Beginning:
     Bar: 1
     Beat: 1
   Endings:
-  - Bar: 5
-    Beat: 1
-  - Bar: 9
+  - Bar: 3
     Beat: 1
   IntroEnd:
     Bar: 1
     Beat: 1
   VampEnd:
-    Bar: 9
+    Bar: 3
     Beat: 1

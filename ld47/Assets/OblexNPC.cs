@@ -16,6 +16,7 @@ public class OblexNPC : Interactable
     public override void OnPrimaryActionFinished()
     {
         Juicer.ShakeCamera(0.5f);
+        Juicer.PlaySound(1);
         GameConductor.KillNPC();
         transform.parent.parent.Translate(0, -10, 0);
     }

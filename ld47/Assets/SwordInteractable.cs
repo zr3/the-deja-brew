@@ -9,6 +9,7 @@ public class SwordInteractable : Interactable
     public override void OnPrimaryActionFinished()
     {
         GameConductor.IsPlayerAWarrior = true;
+        Juicer.PlaySound(1);
         playerSword.SetActive(true);
         GameConductor.EnqueueReset(() =>
         {

@@ -15,7 +15,6 @@ public class IntroState : IState
     public void OnEnter()
     {
         GameConductor.CameraStateTrigger("Initialize");
-        MusicBox.ChangeMusic(Song.Game.ToInt());
         GameConductor.ResetStates();
         GameConductor.AdvanceDay();
     }

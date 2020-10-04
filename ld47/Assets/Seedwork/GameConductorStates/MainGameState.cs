@@ -14,7 +14,9 @@ public class MainGameState : ScriptableObject, IState
     private int niceHour = 11;
     private int niceMinute = 0;
 
-    public void OnEnter() {
+    public void OnEnter()
+    {
+        MusicBox.ChangeMusic(Song.Game.ToInt());
         GameConductor.SetShowHud(true);
         time = 0;
         niceHour = 11;
@@ -58,6 +60,7 @@ public class MainGameState : ScriptableObject, IState
     {
         if (GameConductor.IsSleeping)
         {
+            MusicBox.ChangeMusic(Song.Intro.ToInt());
             ScreenFader.FadeOut();
             NextState = new IntroState(GameConductor.GetDayCard());
             GameConductor.IsSleeping = false;

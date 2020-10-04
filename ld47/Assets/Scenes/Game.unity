@@ -8065,6 +8065,9 @@ MonoBehaviour:
   CameraShakeProfile: {fileID: 0}
   Fx:
   - {fileID: 1020718505873007720, guid: 269adaee7c894d34bb18bd4fc25821eb, type: 3}
+  Sfx:
+  - {fileID: 8300000, guid: c0c67bec34ac1f144822997443d89310, type: 3}
+  - {fileID: 8300000, guid: 43ed414e95adcbf4aab754f5706133dc, type: 3}
   Camera: {fileID: 1866433102}
 --- !u!4 &737918421 stripped
 Transform:
@@ -8167,7 +8170,7 @@ MonoBehaviour:
   OblexBody: {fileID: 525929637}
   Gate: {fileID: 1619122619}
   Curtain: {fileID: 1246335983}
-  LoadTitleScene: 0
+  LoadTitleScene: 1
   ScriptableObjectGameStates:
   - {fileID: 11400000, guid: fd5cdb1beef4d9b47847ae7237171b46, type: 2}
   HUD: {fileID: 470558213}
@@ -14250,7 +14253,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ec117e0d9aa5d9146b70feda6fde9f9b, type: 2}
   - {fileID: 11400000, guid: c791d113a58d68a4eadf5eb90ee4d228, type: 2}
   AmbientClips:
-  - {fileID: 8300000, guid: c4223a64e26a97047ae84e870cd4387e, type: 3}
+  - {fileID: 8300000, guid: 3d27921fd4bd38846974e028564c40da, type: 3}
   OnClipScheduled:
     m_PersistentCalls:
       m_Calls: []
@@ -18002,8 +18005,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91c6f1e13364d384e9293790ce3c25fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollDelay: 2
-  ScrollTime: 10
+  ScrollDelay: 10
+  ScrollTime: 20
 --- !u!114 &1639567136
 MonoBehaviour:
   m_ObjectHideFlags: 0

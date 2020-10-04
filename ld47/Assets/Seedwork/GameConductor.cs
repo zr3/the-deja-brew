@@ -37,7 +37,6 @@ public partial class GameConductor : MonoBehaviour
     }
     void OnMainMenuStart()
     {
-        MusicBox.ChangeMusic((int)Song.Intro);
         MusicBox.PlayAmbience(0);
     }
 

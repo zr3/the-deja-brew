@@ -32,6 +32,7 @@ public class Interactable : MonoBehaviour
 
     public void OnInteract()
     {
+        Juicer.PlaySound(2);
         GameConductor.FreezePlayer();
         List<string> selectedTexts = used
             ? secondaryTexts

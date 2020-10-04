@@ -27,11 +27,21 @@ public class DrunkGuy : MonoBehaviour
 
     void PassOut()
     {
-        // swap places with other
+        StartCoroutine(DrunkSequence());
+    }
+
+    IEnumerator DrunkSequence()
+    {
+        GameConductor.CameraStateTrigger("drunk");
+        GameConductor.FreezePlayer();
+        yield return new WaitForSeconds(2);
         Juicer.ShakeCamera(0.3f);
-        // todo: play sound
+        Juicer.PlaySound(0);
         passedOutGuy.transform.position = transform.position;
         transform.parent.position = otherStart;
+        yield return new WaitForSeconds(2);
+        GameConductor.UnfreezePlayer();
+        GameConductor.CameraStateTrigger("FocusPlayer");
     }
 
     void ResetState()

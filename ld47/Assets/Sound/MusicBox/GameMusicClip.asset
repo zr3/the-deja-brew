@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af155caa27392f9479a94dd8f00b6db7, type: 3}
   m_Name: GameMusicClip
   m_EditorClassIdentifier: 
-  Name: Introduction
+  Name: Band
   ClipLayers:
-  - Clip: {fileID: 8300000, guid: 485fc6e1c60df7842b64a173d5261628, type: 3}
-  BPM: 120
+  - Clip: {fileID: 8300000, guid: f1241b03b0700c948b2a01e5c0d2a7b9, type: 3}
+  BPM: 125
   BeatsPerBar: 4
   Beginning:
     Bar: 1
@@ -33,9 +33,21 @@ MonoBehaviour:
     Beat: 1
   - Bar: 25
     Beat: 1
+  - Bar: 29
+    Beat: 1
+  - Bar: 33
+    Beat: 1
+  - Bar: 37
+    Beat: 1
+  - Bar: 41
+    Beat: 1
+  - Bar: 45
+    Beat: 1
+  - Bar: 51
+    Beat: 1
   IntroEnd:
     Bar: 1
     Beat: 1
   VampEnd:
-    Bar: 25
+    Bar: 51
     Beat: 1

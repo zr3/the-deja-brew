@@ -108,6 +108,7 @@ public class MessageController : MonoBehaviour {
             {
                 yield return new WaitForSecondsOr(MessageDelay, ShouldSkipText);
             }
+            Juicer.PlaySound(3);
             skipKeyActive = false;
             interruptCurrentMessage = false;
             currentMessage.Action();
