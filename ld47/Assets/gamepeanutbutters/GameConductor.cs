@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,12 +13,19 @@ public partial class GameConductor : MonoBehaviour
         get => HUD.activeInHierarchy;
         set => HUD.SetActive(value);
     }
+
+    public static void ResetPlayer()
+    {
+        Player.Reset();
+    }
+
     public static void SetShowHud(bool value) => _instance.ShowHud = value;
     public ScriptableObject[] ScriptableObjectGameStates;
 
     [Header("References")]
     public GameObject HUD;
     public Animator CameraAnimator;
+    public GameObject player;
 
     private static GameConductor _instance;
     protected enum Hook {

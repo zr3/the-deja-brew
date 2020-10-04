@@ -10,22 +10,27 @@ public class IntroState : IState
     {
         GameConductor.CameraStateTrigger("Initialize");
         MusicBox.ChangeMusic(Song.Game.ToInt());
+        GameConductor.ResetStates();
+        GameConductor.AdvanceDay();
     }
 
     public IEnumerator OnUpdate()
     {
+        GameConductor.ResetPlayer();
+        GameConductor.UnfreezePlayer();
         yield return new WaitForSeconds(1);
         bool isFinished = false;
         ScreenFader.FadeInThen(() =>
         {
-            Juicer.ShakeCamera(0.5f);
-            MessageController.AddMessage("Hi! Haven't seen you around before.");
+            GameConductor.FreezePlayer();
+            MessageController.AddMessage("Hmm. Haven't seen you around before.");
             MessageController.AddMessage("Welcome to The Deja Brew.");
             MessageController.AddMessage("... oh? You need a place to stay?");
             MessageController.AddMessage("We got a room in the back when you're ready to hit the hay.");
             MessageController.AddMessage("Literally -- it's all we got.", postAction: () =>
             {
                 GameConductor.CameraStateTrigger("FocusPlayer");
+                GameConductor.UnfreezePlayer();
                 isFinished = true;
             });
             MessageController.AddMessage("Enjoy the band and meet some of the regulars. We usually get a few characters in here.");

@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum Song
@@ -11,6 +14,7 @@ public enum Song
 
 public partial class GameConductor : MonoBehaviour
 {
+    public static int PlayerFrozen = 0;
     void OnMainMenuStart()
     {
         MusicBox.ChangeMusic((int)Song.Intro);
@@ -35,6 +39,78 @@ public partial class GameConductor : MonoBehaviour
         var initialState = new IntroState();
         StartCoroutine(stateMachine(initialState));
     }
+    
+    public static void FreezePlayer()
+    {
+        PlayerFrozen++;
+    }
+
+    public static void UnfreezePlayer()
+    {
+        PlayerFrozen--;
+        if (PlayerFrozen < 0)
+        {
+            PlayerFrozen = 0;
+        }
+    }
+
+    public static bool IsPlayerFrozen => PlayerFrozen > 0;
+
+    /// <summary>
+    /// These should be added every state loop
+    /// </summary>
+    public static Queue<Action> StateResets = new Queue<Action>();
+    public static void EnqueueReset(Action action)
+    {
+        StateResets.Enqueue(action);
+    }
+    public static void ResetStates()
+    {
+        while (StateResets.Any())
+        {
+            StateResets.Dequeue().Invoke();
+        }
+    }
+    /// <summary>
+    /// These should only be added once per app load, not every state loop
+    /// </summary>
+    public static HashSet<Action<int, int>> ScheduleCallbacks = new HashSet<Action<int, int>>();
+    public static void AddScheduleCallback(Action<int, int> action)
+    {
+        ScheduleCallbacks.Add(action);
+    }
+    public static void PerformScheduleCallbacks(int hour, int min)
+    {
+        foreach (var action in ScheduleCallbacks)
+        {
+            action.Invoke(hour, min);
+        }
+    }
+
+    public static bool IsSleeping = false;
+
+    private static Queue<string> _days = new Queue<string>(new[] {
+        "Friday",
+        "Saturday",
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday"
+    });
+    public static void AdvanceDay()
+    {
+        string nextDay = _days.Dequeue();
+        DataDump.Set("Day", nextDay);
+        _days.Enqueue(nextDay);
+    }
+    public static bool IsMaidAQuitter = false;
+    public static bool IsCrowd1Drinking = false;
+    public static bool IsCrowd2Drinking = false;
+    public static bool IsCrowd3Drinking = false;
+    public static bool IsBarflyHelping = false;
+    public static bool IsPlayerAWarrior = false;
+    public static bool IsOblexDead = false;
 }
 
 public static class SongExtensions

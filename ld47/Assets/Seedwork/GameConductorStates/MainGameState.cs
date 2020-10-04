@@ -5,51 +5,66 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MainGameStateState.asset", menuName = "peanutbutters/MainGameState", order = 20)]
 public class MainGameState : ScriptableObject, IState
 {
-    public GameObject PlayerPrototype;
-    public Vector3 PlayerSpawnLocation;
-
-    private GameObject player;
-    private const int maxHP = 25;
     public IState NextState { get; private set; }
+    // 90 secs then stop
+    // 3 hours, 30 secs per hour
+    // 2 mins / second
+    // 10 mins / 5 real seconds
+    private float time = 0;
+    private int niceHour = 11;
+    private int niceMinute = 0;
 
     public void OnEnter() {
-        //player = GameObject.Instantiate(PlayerPrototype);
-        //player.transform.position = PlayerSpawnLocation;
-        //Juicer.CreateFx(0, PlayerSpawnLocation);
-        //Juicer.ShakeCamera(0.5f);
-        //MusicBox.ChangeMusic((int)Song.Boss);
-        //DataDump.Set("HP", maxHP);
-        //DataDump.Set("ScaledHP", 1.0f);
-        //var cam = GameObject.Find("CinemachineStateCamera/GameCam").GetComponent<CinemachineVirtualCamera>();
-        //cam.Follow = player.transform;
-        //cam.LookAt = player.transform;
         GameConductor.SetShowHud(true);
+        time = 0;
+        niceHour = 11;
+        niceMinute = 0;
+        SetTime();
+    }
+
+    private void SetTime()
+    {
+        string minutePrefix = niceMinute < 10 ? "0" : "";
+        DataDump.Set("Time", $"{niceHour}:{minutePrefix}{niceMinute}");
+        GameConductor.PerformScheduleCallbacks(niceHour, niceMinute);
     }
 
     public IEnumerator OnUpdate()
     {
-        //do
-        //{
-        //    int currentHP = DataDump.Get<int>("HP") - 1;
-        //    DataDump.Set("HP", currentHP);
-        //    DataDump.Set("ScaledHP", (float) currentHP / maxHP);
-        //    yield return new WaitForSeconds(1);
-        //} while (DataDump.Get<int>("HP") > 0);
-        //Juicer.CreateFx(0, player.transform.position);
-        //GameObject.Destroy(player);
-        //Juicer.ShakeCamera(1.5f);
         bool readyToMoveOn = false;
-        //MessageController.AddMessage("butterboi is dead now.", postAction: () => readyToMoveOn = true);
-        while (!readyToMoveOn)
-        {
-            yield return null;
+        while (!GameConductor.IsOblexDead && !GameConductor.IsSleeping) {
+            time += 1;
+            if (time >= 5 && niceHour != 2)
+            {
+                time = 0;
+                niceMinute += 10;
+                if (niceMinute == 60)
+                {
+                    niceMinute = 0;
+                    niceHour += 1;
+                    if (niceHour == 13)
+                    {
+                        niceHour = 1;
+                    }
+                }
+                SetTime();
+            }
+            yield return new WaitForSeconds(1);
         }
+        ScreenFader.FadeOut();
+        GameConductor.SetShowHud(false);
+        yield return new WaitForSeconds(1);
     }
 
     public void OnExit()
     {
-        GameConductor.SetShowHud(false);
-        ScreenFader.FadeOut();
-        NextState = new CreditsState();
+        if (GameConductor.IsSleeping)
+        {
+            NextState = new IntroState();
+            GameConductor.IsSleeping = false;
+        } else
+        {
+            NextState = new CreditsState();
+        }
     }
 }
