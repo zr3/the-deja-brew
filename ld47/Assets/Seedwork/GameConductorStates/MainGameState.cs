@@ -31,8 +31,7 @@ public class MainGameState : ScriptableObject, IState
 
     public IEnumerator OnUpdate()
     {
-        bool readyToMoveOn = false;
-        while (!GameConductor.IsOblexDead && !GameConductor.IsSleeping) {
+        while (!GameConductor.IsOblexTriggered && !GameConductor.IsSleeping) {
             time += 1;
             if (time >= 5 && niceHour != 2)
             {
@@ -51,7 +50,6 @@ public class MainGameState : ScriptableObject, IState
             }
             yield return new WaitForSeconds(1);
         }
-        ScreenFader.FadeOut();
         GameConductor.SetShowHud(false);
         yield return new WaitForSeconds(1);
     }
@@ -60,11 +58,12 @@ public class MainGameState : ScriptableObject, IState
     {
         if (GameConductor.IsSleeping)
         {
-            NextState = new IntroState();
+            ScreenFader.FadeOut();
+            NextState = new IntroState(GameConductor.GetDayCard());
             GameConductor.IsSleeping = false;
         } else
         {
-            NextState = new CreditsState();
+            NextState = new OblexState();
         }
     }
 }

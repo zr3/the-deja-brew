@@ -8,6 +8,27 @@ public class Interactable : MonoBehaviour
     public List<string> secondaryTexts;
     public string cameraTrigger;
     public bool used;
+    public bool cleared;
+    public Notification notification;
+
+    public void OnSelect()
+    {
+        if (!used && !cleared)
+        {
+            notification?.ShowFresh();
+        } else if (used && !cleared)
+        {
+            notification?.ShowMore();
+        } else if (used && cleared)
+        {
+            notification?.ShowRepeat();
+        }
+    }
+
+    public void OnDeselect()
+    {
+        notification?.Clear();
+    }
 
     public void OnInteract()
     {
@@ -17,7 +38,11 @@ public class Interactable : MonoBehaviour
             : texts;
         if (!used)
         {
-            GameConductor.EnqueueReset(() => used = false);
+            GameConductor.EnqueueReset(() =>
+            {
+                used = false;
+                cleared = false;
+            });
         }
         for (int i = 0; i < selectedTexts.Count; ++i)
         {
@@ -40,14 +65,18 @@ public class Interactable : MonoBehaviour
                     if (used)
                     {
                         OnSecondaryActionFinished();
+                        cleared = true;
                     } else
                     {
+                        OnPrimaryActionFinished();
                         used = true;
                     }
+                    Player.DeselectInteractable();
                 });
             }
         }
     }
 
+    public virtual void OnPrimaryActionFinished() { }
     public virtual void OnSecondaryActionFinished() { }
 }

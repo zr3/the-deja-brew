@@ -6,6 +6,8 @@ public class CreditsState : IState
     public IState NextState { get; private set; }
 
     public void OnEnter() {
+        ScreenFader.FadeOut();
+        GameConductor.FreezePlayer();
         MusicBox.ChangeMusic((int)Song.Final);
         MusicBox.Instance.FadeInTrack(1);
         CreditRoller.RollCredits();
@@ -13,7 +15,7 @@ public class CreditsState : IState
 
     public IEnumerator OnUpdate()
     {
-        while (!Input.GetKeyDown(KeyCode.Space))
+        while (true)
         {
             yield return null;
         }
@@ -21,8 +23,5 @@ public class CreditsState : IState
 
     public void OnExit()
     {
-        // restart game
-        CreditRoller.ResetCredits();
-        NextState = new IntroState();
     }
 }

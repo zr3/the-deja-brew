@@ -13,7 +13,14 @@ public class CrowdInteractable : Interactable
         startLocation = transform.position;
         startRotation = transform.rotation;
     }
+    public override void OnPrimaryActionFinished()
+    {
+        TryMoveForDrink();
+    }
     public override void OnSecondaryActionFinished()
+    {
+    }
+    private void TryMoveForDrink()
     {
         if (!GameConductor.IsMaidAQuitter || GameConductor.IsBarflyHelping)
         {
@@ -33,7 +40,7 @@ public class CrowdInteractable : Interactable
                     GameConductor.EnqueueReset(() => GameConductor.IsCrowd3Drinking = false);
                     break;
             }
-            GameConductor.EnqueueReset(() => transform.parent.SetPositionAndRotation(TargetDrinkLocation.position, TargetDrinkLocation.rotation));
+            GameConductor.EnqueueReset(() => transform.parent.SetPositionAndRotation(startLocation, startRotation));
         }
     }
 }

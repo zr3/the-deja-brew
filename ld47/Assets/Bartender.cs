@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class Bartender : MonoBehaviour
@@ -25,6 +26,13 @@ public class Bartender : MonoBehaviour
             else if (hour == 12 && min == 50 && GameConductor.IsMaidAQuitter)
             {
                 HelpDrunk();
+            }
+            else if (hour == 2 && min == 0 && !GameConductor.IsOblexRevealed)
+            {
+                GameConductor.FreezePlayer();
+                MessageController.AddMessage("(you hear the bartender's voice)");
+                MessageController.AddMessage("Oy! Last call for drinks! The show's over!");
+                MessageController.AddMessage("Nothing more to see!", postAction: () => GameConductor.UnfreezePlayer());
             }
         });
     }

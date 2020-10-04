@@ -15,6 +15,26 @@ public enum Song
 public partial class GameConductor : MonoBehaviour
 {
     public static int PlayerFrozen = 0;
+    public GameObject DayCard;
+    public List<GameObject> NPCs;
+    public static List<GameObject> GetNPCs=> _instance.NPCs;
+    public List<GameObject> BandNPCs;
+    public static List<GameObject> GetBandNPCs => _instance.BandNPCs;
+    public GameObject OblexBody;
+    public static GameObject GetOblexBody => _instance.OblexBody;
+    public GameObject Gate;
+    public static GameObject GetGate => _instance.Gate;
+    public GameObject Curtain;
+    public static GameObject GetCurtain => _instance.Curtain;
+    public static int NPCsKilled = 0;
+    public static void KillNPC()
+    {
+        NPCsKilled++;
+    }
+    public static GameObject GetDayCard()
+    {
+        return _instance.DayCard;
+    }
     void OnMainMenuStart()
     {
         MusicBox.ChangeMusic((int)Song.Intro);
@@ -36,7 +56,7 @@ public partial class GameConductor : MonoBehaviour
                 state = state.NextState;
             } while (state != null);
         }
-        var initialState = new IntroState();
+        var initialState = new IntroState(DayCard);
         StartCoroutine(stateMachine(initialState));
     }
     
@@ -110,7 +130,8 @@ public partial class GameConductor : MonoBehaviour
     public static bool IsCrowd3Drinking = false;
     public static bool IsBarflyHelping = false;
     public static bool IsPlayerAWarrior = false;
-    public static bool IsOblexDead = false;
+    public static bool IsOblexRevealed = false;
+    public static bool IsOblexTriggered = false;
 }
 
 public static class SongExtensions

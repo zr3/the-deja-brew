@@ -6,7 +6,7 @@ public class SwordInteractable : Interactable
 {
     public GameObject playerSword;
 
-    public override void OnSecondaryActionFinished()
+    public override void OnPrimaryActionFinished()
     {
         GameConductor.IsPlayerAWarrior = true;
         playerSword.SetActive(true);

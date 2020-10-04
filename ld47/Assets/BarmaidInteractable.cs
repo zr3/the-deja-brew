@@ -5,7 +5,7 @@ using UnityEngine;
 public class BarmaidInteractable : Interactable
 {
     public Transform TargetQuitLocation;
-    public override void OnSecondaryActionFinished()
+    public override void OnPrimaryActionFinished()
     {
         GameConductor.IsMaidAQuitter = true;
         GameConductor.EnqueueReset(() => GameConductor.IsMaidAQuitter = false);

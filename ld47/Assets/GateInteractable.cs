@@ -11,18 +11,7 @@ public class GateInteractable : Interactable
     {
         if (GameConductor.IsPlayerAWarrior)
         {
-            // todo: shwink sound and animations
-            GameConductor.EnqueueReset(() =>
-            {
-                Gate.transform.Translate(0, 10, 0);
-                Curtain.transform.Translate(0, 10, 0);
-            });
-            Gate.transform.Translate(0, -10, 0);
-            Curtain.transform.Translate(0, -10, 0);
-            ScreenFader.FadeOutThen(() =>
-            {
-                GameConductor.IsOblexDead = true;
-            }, 1);
+            GameConductor.IsOblexTriggered = true;
         }
     }
 }

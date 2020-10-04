@@ -1,9 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class IntroState : IState
 {
+    private GameObject _daycard;
+    public IntroState(GameObject daycard)
+    {
+        _daycard = daycard;
+    }
     public IState NextState { get; private set; }
 
     public void OnEnter()
@@ -18,12 +24,16 @@ public class IntroState : IState
     {
         GameConductor.ResetPlayer();
         GameConductor.UnfreezePlayer();
-        yield return new WaitForSeconds(1);
+        GameConductor.PerformScheduleCallbacks(11, 0);
+        _daycard.SetActive(true);
+        _daycard.GetComponentInChildren<Text>().text = DataDump.Get<string>("Day") + " evening";
+        yield return new WaitForSeconds(4);
+        _daycard.SetActive(false);
         bool isFinished = false;
         ScreenFader.FadeInThen(() =>
         {
             GameConductor.FreezePlayer();
-            MessageController.AddMessage("Hmm. Haven't seen you around before.");
+            MessageController.AddMessage("Hmm. Haven't seen you around before.", postAction: () => GameConductor.CameraStateTrigger("NextState"));
             MessageController.AddMessage("Welcome to The Deja Brew.");
             MessageController.AddMessage("... oh? You need a place to stay?");
             MessageController.AddMessage("We got a room in the back when you're ready to hit the hay.");
